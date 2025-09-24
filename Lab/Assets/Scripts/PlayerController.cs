@@ -5,33 +5,43 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D rb;
     public float flapStrength = 5f;
     public float yBounds = -5f;
+    public float speed = 5f;
+    SpriteRenderer spriteRenderer;
 
-    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
 
         rb = GetComponent<Rigidbody2D>();
-        
+        spriteRenderer = GetComponent<SpriteRenderer>();
 
-       
     }
    
 
     // Update is called once per frame
     void Update()
     {
-        
-        if (Input.GetMouseButtonDown(0)) //This checks if the left mouse button has been clicked, and if so, flap. 
+        BatMove();
+
+
+        if (Input.GetKeyDown("space"))
         {
-           flap();
-
+            Debug.Log("space key was pressed");
+            flap();
         }
-
-
-
     }
+    void LateUpdate()
+    {
+        float move = Input.GetAxis("Horizontal");
+        if (move > 0) spriteRenderer.flipX = false;
+        if (move < 0) spriteRenderer.flipX = true;
+    }
+    private void BatMove()
+    {
 
+        float move = Input.GetAxis("Horizontal"); // A/D 
+        transform.Translate(Vector2.right * move * speed * Time.deltaTime); //Use Vector3 for 3D games
+    }
 
 
     private void flap () //This is a method that allows me to control how the bird flaps 
