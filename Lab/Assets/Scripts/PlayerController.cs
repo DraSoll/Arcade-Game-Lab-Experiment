@@ -16,11 +16,12 @@ public class PlayerController : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
 
     }
-   
+
 
     // Update is called once per frame
     void Update()
     {
+    
         BatMove();
 
 
@@ -30,25 +31,52 @@ public class PlayerController : MonoBehaviour
             flap();
         }
     }
+
+
     void LateUpdate()
     {
         float move = Input.GetAxis("Horizontal");
         if (move > 0) spriteRenderer.flipX = false;
         if (move < 0) spriteRenderer.flipX = true;
     }
+
+
+
     private void BatMove()
     {
-
         float move = Input.GetAxis("Horizontal"); // A/D 
         transform.Translate(Vector2.right * move * speed * Time.deltaTime); //Use Vector3 for 3D games
     }
 
 
-    private void flap () //This is a method that allows me to control how the bird flaps 
-     {
-         rb.linearVelocity = Vector2.up * flapStrength;
-     }
-     
+    private void flap() //This is a method that allows me to control how the bird flaps 
+    {
+        rb.linearVelocity = Vector2.up * flapStrength;
+    }
+
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        if (col.gameObject.CompareTag("Enemy"))
+        {
+            //GameManager.Instance.GameOver();
+            Debug.Log("GameOver");
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
