@@ -1,4 +1,5 @@
 using UnityEngine;
+using static UnityEngine.UI.Image;
 
 public class PlayerController : MonoBehaviour
 {
@@ -7,6 +8,11 @@ public class PlayerController : MonoBehaviour
     public float yBounds = -5f;
     public float speed = 5f;
     SpriteRenderer spriteRenderer;
+    public ParticleSystem myParticleSystem;
+
+    public GameObject echo;
+
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -30,6 +36,15 @@ public class PlayerController : MonoBehaviour
             Debug.Log("space key was pressed");
             flap();
         }
+       
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            myParticleSystem.Play();
+            Debug.Log("Particle System started!");
+            Instantiate(echo, new Vector3(0, 0, 0), transform.rotation);
+
+        }
+        
     }
 
 
