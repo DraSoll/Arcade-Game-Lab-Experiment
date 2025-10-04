@@ -7,6 +7,7 @@ public class MoveLeft : MonoBehaviour
     //These are variables that are to be able to be changed if 
     public float speed = 3f;
     public float leftBounds = -11f;
+     public float rightBounds = 80f;
     public float Y = -5f;
     public bool Background = false;
     public float OriginX = 155;
@@ -20,18 +21,16 @@ public class MoveLeft : MonoBehaviour
 
         transform.Translate(Vector3.left * speed * Time.deltaTime);
 
-        if (transform.position.x < leftBounds)
+        if (transform.position.x > rightBounds)
         {
             Destroy(this.gameObject);
         }
     }
-
-    void OnCollisionEnter2D(Collision2D collision)
+  void OnTriggerEnter2D(Collider2D other)
     {
-        if (collision.gameObject.tag == spawner)
+        if (other.CompareTag("Finish")) // Assuming the colliding object has the tag "Player"
         {
-            summonNew();
-            
+            Destroy(this.gameObject);
         }
     }
 

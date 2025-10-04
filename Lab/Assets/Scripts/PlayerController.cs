@@ -1,14 +1,23 @@
 using UnityEngine;
 using static UnityEngine.UI.Image;
+using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
     Rigidbody2D rb;
+
     public float flapStrength = 5f;
-    public float yBounds = -5f;
     public float speed = 5f;
+
     SpriteRenderer spriteRenderer;
+
     public ParticleSystem myParticleSystem;
+
+    private bool object1Found = false;
+    private bool object2Found = false;
+    private bool object3Found = false;
+    private int ObjectNumber;
+
 
     public GameObject echo;
 
@@ -31,20 +40,28 @@ public class PlayerController : MonoBehaviour
         BatMove();
 
 
-        if (Input.GetKeyDown("space"))
-        {
-            Debug.Log("space key was pressed");
-            flap();
-        }
+       
        
         if (Input.GetKeyDown(KeyCode.E))
         {
+            StartCoroutine(Echo());
             myParticleSystem.Play();
             Debug.Log("Particle System started!");
-            Instantiate(echo, new Vector3(0, 0, 0), transform.rotation);
 
         }
         
+    }
+
+
+    IEnumerator Echo()
+    {
+        Instantiate(echo, new Vector3(0, 0, 0), transform.rotation);
+        yield return new WaitForSeconds(0.5f);
+        Instantiate(echo, new Vector3(0, 0, 0), transform.rotation);
+        yield return new WaitForSeconds(0.5f);
+        Instantiate(echo, new Vector3(0, 0, 0), transform.rotation);
+        yield return new WaitForSeconds(0.5f);
+        Instantiate(echo, new Vector3(0, 0, 0), transform.rotation);
     }
 
 
@@ -61,6 +78,11 @@ public class PlayerController : MonoBehaviour
     {
         float move = Input.GetAxis("Horizontal"); // A/D 
         transform.Translate(Vector2.right * move * speed * Time.deltaTime); //Use Vector3 for 3D games
+        if (Input.GetKeyDown("space"))
+        {
+            Debug.Log("space key was pressed");
+            flap();
+        }
     }
 
 
@@ -73,26 +95,17 @@ public class PlayerController : MonoBehaviour
     {
         if (col.gameObject.CompareTag("Enemy"))
         {
-            //GameManager.Instance.GameOver();
+            // GameManager.instance.GameOver();
             Debug.Log("GameOver");
         }
+        if (col.gameObject.CompareTag("Object 1"))
+        {
+            object1Found =true;
+            ObjectNumber = 1;
+            Debug.Log("Object 1 Found!");
+            // GameManager.instance.ObjectFound(ObjectNumber);
+
+        }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }
