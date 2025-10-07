@@ -1,17 +1,38 @@
 using UnityEngine;
+using System.Collections;
 
 public class EnemyMovement : MonoBehaviour
 {
     SpriteRenderer spriteRenderer;
+    private string WallTag = "Wall";
+    public bool HitWallRight = false;
+    Rigidbody2D rb;
+    public float speed = 5f;
 
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+
+        rb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (HitWallRight == false)
+        {
+             transform.Translate(Vector2.right * speed * Time.deltaTime);
+            
+        
+        }
+        if (HitWallRight == true)
+        {
+             transform.Translate(Vector2.left  * speed * Time.deltaTime);
+            
+        }
+
+       
+
         /*
          * To do 
          * 1 - Make enemy move left and right 
@@ -19,6 +40,31 @@ public class EnemyMovement : MonoBehaviour
          */
 
     }
+
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        
+        if (col.gameObject.CompareTag(WallTag))
+        {
+            if (HitWallRight == true)
+            {
+            HitWallRight = false;
+            Debug.Log("Hit the wall! twice");
+            }
+        else
+            {
+            HitWallRight = true;
+            Debug.Log("Hit the wall! once");
+            }
+    
+            
+            
+
+        }
+    }
+   
+
+
 
     void LateUpdate()
     {

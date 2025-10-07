@@ -16,6 +16,7 @@ public class FindObject : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
+
         if (other.CompareTag("Echo")) // Assuming the colliding object has the tag "Player"
         {
             myParticleSystem.Play();
@@ -24,9 +25,19 @@ public class FindObject : MonoBehaviour
         }
         if (other.CompareTag("Player")) // Assuming the colliding object has the tag "Player"
         {
-           Destroy(this.gameObject);
+           StartCoroutine(Player());
         }
     }
+  
+    IEnumerator Player()
+    {
+        
+        yield return new WaitForSeconds(1);
+        Destroy(this.gameObject);
+
+    }
+
+
 
  IEnumerator FlashOn()
     {

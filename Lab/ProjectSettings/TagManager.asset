@@ -8,6 +8,10 @@ TagManager:
   - Echo
   - Wall
   - Object
+  - Object 1
+  - Object 2
+  - Object 3
+  - Keycard
   layers:
   - Default
   - TransparentFX

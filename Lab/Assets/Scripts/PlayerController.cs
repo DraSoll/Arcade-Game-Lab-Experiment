@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
 
     public ParticleSystem myParticleSystem;
 
-    private bool object1Found = false;
+    private bool KeycardFound = false;
     private bool object2Found = false;
     private bool object3Found = false;
     private int ObjectNumber;
@@ -45,8 +45,6 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E))
         {
             StartCoroutine(Echo());
-            myParticleSystem.Play();
-            Debug.Log("Particle System started!");
 
         }
         
@@ -93,19 +91,28 @@ public class PlayerController : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.gameObject.CompareTag("Enemy"))
+        if (col.gameObject.CompareTag("Keycard"))
         {
-            // GameManager.instance.GameOver();
-            Debug.Log("GameOver");
-        }
-        if (col.gameObject.CompareTag("Object 1"))
-        {
-            object1Found =true;
-            ObjectNumber = 1;
+            KeycardFound =true;
+            
             Debug.Log("Object 1 Found!");
-            // GameManager.instance.ObjectFound(ObjectNumber);
+            GameManager.instance.KeycardObject1Found();
 
         }
+        if (col.gameObject.CompareTag("Enemy"))
+        {
+            GameManager.instance.LoseGame();
+            Debug.Log("GameOver");
+        }
+
+        if (col.gameObject.CompareTag("Finish"))
+        {
+            if (KeycardFound = true)
+            {
+                GameManager.instance.WinGame();
+            }
+        }
+        
     }
 
 }

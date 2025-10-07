@@ -8,14 +8,14 @@ using System.Collections;
 public class GameManager : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    public string WinScreen = "Win"; 
-    public string LoseScreen = "Lose"; 
+    public string WinScreenName = "Win"; 
+    public string LoseScreenName = "Lose"; 
     public string StartScreen = "Start"; 
     public string LevelScreen = "Level"; 
-    public int score;
-    public TextMeshProUGUI ScoreText;
     public static GameManager instance;
     public float timeDelay;
+    public GameObject KeycardText;
+    public string sceneName;
    
 
     void Awake()
@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
     
     void Start()
     {
-        
+        KeycardText.SetActive(false);
     }
 
     // Update is called once per frame
@@ -47,11 +47,25 @@ public class GameManager : MonoBehaviour
     public void GoToScene()
     {
        StartCoroutine(DelayScreenLoad());
+
     }
+    public void LoseGame()
+    {
+        sceneName = LoseScreenName;
+        StartCoroutine(DelayScreenLoad());
+
+    }
+    public void WinGame()
+    {
+        sceneName = WinScreenName;
+        StartCoroutine(DelayScreenLoad());
+
+    }
+
     public IEnumerator DelayScreenLoad() //This delays the screen load by whatever number I place in for the time delay
     {
         yield return new WaitForSeconds(timeDelay);
-        // SceneManager.LoadScene(sceneName);
+        SceneManager.LoadScene(sceneName);
 
     }
     public void QuitGame()
@@ -60,9 +74,11 @@ public class GameManager : MonoBehaviour
         Application.Quit(); 
         Debug.Log("Quit button pressed"); 
     }
+    public void KeycardObject1Found()
+    {
+        KeycardText.SetActive(true);
 
-
-
+    }
 
 
 
