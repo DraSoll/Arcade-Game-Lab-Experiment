@@ -14,7 +14,9 @@ public class GameManager : MonoBehaviour
     public string LevelScreen = "Level"; 
     public static GameManager instance;
     public float timeDelay;
-    public GameObject KeycardText;
+    public GameObject KeycardDisplay;
+    public GameObject UniformDisplay;
+    public GameObject KnifeDisplay;
     public string sceneName;
    
 
@@ -37,7 +39,9 @@ public class GameManager : MonoBehaviour
     
     void Start()
     {
-        KeycardText.SetActive(false);
+        KeycardDisplay.SetActive(false);
+        UniformDisplay.SetActive(false);
+        KnifeDisplay.SetActive(false);
     }
 
     // Update is called once per frame
@@ -76,7 +80,17 @@ public class GameManager : MonoBehaviour
     }
     public void KeycardObject1Found()
     {
-        KeycardText.SetActive(true);
+        KeycardDisplay.SetActive(true);
+
+    }
+    public void UniformObject2Found()
+    {
+        UniformDisplay.SetActive(true);
+
+    }
+    public void KnifeObject3Found()
+    {
+        KnifeDisplay.SetActive(true);
 
     }
 

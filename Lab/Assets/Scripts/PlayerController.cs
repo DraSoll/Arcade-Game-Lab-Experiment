@@ -14,8 +14,8 @@ public class PlayerController : MonoBehaviour
     public ParticleSystem myParticleSystem;
 
     private bool KeycardFound = false;
-    private bool object2Found = false;
-    private bool object3Found = false;
+    private bool UniformFound = false;
+    private bool KnifeFound = false;
     private int ObjectNumber;
 
 
@@ -99,6 +99,23 @@ public class PlayerController : MonoBehaviour
             GameManager.instance.KeycardObject1Found();
 
         }
+        if (col.gameObject.CompareTag("Uniform"))
+        {
+            UniformFound =true;
+            
+            Debug.Log("Object 2 Found!");
+            GameManager.instance.UniformObject2Found();
+
+        }
+        if (col.gameObject.CompareTag("Knife"))
+        {
+            KnifeFound =true;
+            
+            Debug.Log("Object 3 Found!");
+            GameManager.instance.KnifeObject3Found();
+
+        }
+        
         if (col.gameObject.CompareTag("Enemy"))
         {
             GameManager.instance.LoseGame();
@@ -107,9 +124,16 @@ public class PlayerController : MonoBehaviour
 
         if (col.gameObject.CompareTag("Finish"))
         {
-            if (KeycardFound = true)
+            if (KeycardFound = true && KnifeFound = true)
             {
-                GameManager.instance.WinGame();
+                if (UniformFound =true)
+                {
+                    if (KnifeFound =true)
+                    {
+                        GameManager.instance.WinGame();
+                    }
+                }
+                
             }
         }
         
