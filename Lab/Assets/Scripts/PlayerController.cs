@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     public float speed = 5f;
 
     SpriteRenderer spriteRenderer;
+    private bool facingright;
 
     public ParticleSystem myParticleSystem;
 
@@ -17,7 +18,7 @@ public class PlayerController : MonoBehaviour
     private bool UniformFound = false;
     private bool KnifeFound = false;
     private int ObjectNumber;
-
+    public MoveLeft MovementOfEcho;
 
     public GameObject echo;
 
@@ -29,7 +30,7 @@ public class PlayerController : MonoBehaviour
 
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-
+        facingright = true;
     }
 
 
@@ -53,21 +54,53 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator Echo()
     {
-        Instantiate(echo, new Vector3(0, 0, 0), transform.rotation);
-        yield return new WaitForSeconds(0.5f);
-        Instantiate(echo, new Vector3(0, 0, 0), transform.rotation);
-        yield return new WaitForSeconds(0.5f);
-        Instantiate(echo, new Vector3(0, 0, 0), transform.rotation);
-        yield return new WaitForSeconds(0.5f);
-        Instantiate(echo, new Vector3(0, 0, 0), transform.rotation);
+        Vector3 position = transform.position;
+
+
+        
+        
+        if (facingright == true)
+        {
+            Instantiate(echo, position, transform.rotation);
+            yield return new WaitForSeconds(0.5f);
+            Instantiate(echo, position, transform.rotation);
+            yield return new WaitForSeconds(0.5f);
+            Instantiate(echo, position, transform.rotation);
+            yield return new WaitForSeconds(0.5f);
+            Instantiate(echo, position, transform.rotation);
+        } else
+        {
+            Instantiate(echo, position, Quaternion.Euler(0, 0, 180));
+            yield return new WaitForSeconds(0.5f);
+            Instantiate(echo, position, Quaternion.Euler(0, 0, 180));
+            yield return new WaitForSeconds(0.5f);
+            Instantiate(echo, position, Quaternion.Euler(0, 0, 180));
+            yield return new WaitForSeconds(0.5f);
+            Instantiate(echo, position, Quaternion.Euler(0, 0, 180));
+            yield return new WaitForSeconds(0.5f);
+        }
     }
 
 
     void LateUpdate()
     {
         float move = Input.GetAxis("Horizontal");
-        if (move > 0) spriteRenderer.flipX = false;
-        if (move < 0) spriteRenderer.flipX = true;
+        if (move > 0)
+        {
+            spriteRenderer.flipX = false;
+            MovementOfEcho.SetDirection("Right");
+            facingright = true;
+
+
+        }
+           
+        if (move < 0)
+        {
+            spriteRenderer.flipX = true;
+            MovementOfEcho.SetDirection("Left");
+            facingright = false;
+
+        }
     }
 
 
@@ -124,15 +157,12 @@ public class PlayerController : MonoBehaviour
 
         if (col.gameObject.CompareTag("Finish"))
         {
-            if (KeycardFound = true && KnifeFound = true)
+            if (KeycardFound == true)
             {
-                if (UniformFound =true)
-                {
-                    if (KnifeFound =true)
-                    {
+                
                         GameManager.instance.WinGame();
-                    }
-                }
+                    
+                
                 
             }
         }

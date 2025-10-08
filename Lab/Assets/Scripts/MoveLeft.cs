@@ -6,13 +6,9 @@ public class MoveLeft : MonoBehaviour
 {
     //These are variables that are to be able to be changed if 
     public float speed = 3f;
-    public float leftBounds = -11f;
-     public float rightBounds = 80f;
-    public float Y = -5f;
-    public bool Background = false;
-    public float OriginX = 155;
-    public GameObject game;
-    public string spawner =  "enemy";
+    private bool movingLeft = false;
+    SpriteRenderer spriteRenderer;
+
 
 
     // This is a method that is used to move whatever object left and then destroy it once it is out of the bounds 
@@ -20,30 +16,49 @@ public class MoveLeft : MonoBehaviour
     {
 
         transform.Translate(Vector3.left * speed * Time.deltaTime);
+        Debug.Log("movingLeft");
 
-        if (transform.position.x > rightBounds)
+    }
+
+    private void moveRight()
+    {
+        transform.Translate(Vector3.right * speed * Time.deltaTime);
+        Debug.Log("movingRight");
+    }
+
+    public void SetDirection(string Direction)
+    {
+        Debug.Log("SetDirection: " + Direction);
+        if (Direction == "Left")
+        {
+            movingLeft = true;
+        }
+        if (Direction == "Right")
+        {
+            movingLeft = false;
+        }
+    }
+
+
+
+
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Wall")) // Assuming the colliding object has the tag "Player"
         {
             Destroy(this.gameObject);
         }
     }
-  void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Finish")) // Assuming the colliding object has the tag "Player"
-        {
-            Destroy(this.gameObject);
-        }
-    }
 
-    private void summonNew()
-    {
-        Instantiate(game, new Vector3(OriginX, Y, 0),transform.rotation);
-    }
- 
-    // Update is called once per frame
-    // This is just telling the object that every update, either move left or right. Left is the normal gameplay, right is when it is reversed
     void Update()
     {
-       moveLeft();
+      
+        moveRight();
+        spriteRenderer.flipX = false;
+
 
     }
+
+    
 }
