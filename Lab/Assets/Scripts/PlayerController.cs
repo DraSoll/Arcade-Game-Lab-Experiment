@@ -14,10 +14,15 @@ public class PlayerController : MonoBehaviour
 
     public ParticleSystem myParticleSystem;
 
+     public GameObject KeycardDisplay;
+    public GameObject UniformDisplay;
+    public GameObject KnifeDisplay;
+
     private bool KeycardFound = false;
     private bool UniformFound = false;
     private bool KnifeFound = false;
     private int ObjectNumber;
+
     public MoveLeft MovementOfEcho;
 
     public GameObject echo;
@@ -27,6 +32,10 @@ public class PlayerController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+
+        KeycardDisplay.SetActive(false);
+        UniformDisplay.SetActive(false);
+        KnifeDisplay.SetActive(false);
 
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -126,10 +135,9 @@ public class PlayerController : MonoBehaviour
     {
         if (col.gameObject.CompareTag("Keycard"))
         {
-            KeycardFound =true;
-            
+            KeycardFound = true;
             Debug.Log("Object 1 Found!");
-            GameManager.instance.KeycardObject1Found();
+            KeycardObject1Found();
 
         }
         if (col.gameObject.CompareTag("Uniform"))
@@ -137,7 +145,7 @@ public class PlayerController : MonoBehaviour
             UniformFound =true;
             
             Debug.Log("Object 2 Found!");
-            GameManager.instance.UniformObject2Found();
+            UniformObject2Found();
 
         }
         if (col.gameObject.CompareTag("Knife"))
@@ -145,7 +153,7 @@ public class PlayerController : MonoBehaviour
             KnifeFound =true;
             
             Debug.Log("Object 3 Found!");
-            GameManager.instance.KnifeObject3Found();
+            KnifeObject3Found();
 
         }
         
@@ -157,16 +165,31 @@ public class PlayerController : MonoBehaviour
 
         if (col.gameObject.CompareTag("Finish"))
         {
-            if (KeycardFound == true)
+            if (KeycardFound == true && UniformFound == true && KnifeFound == true)
             {
                 
-                        GameManager.instance.WinGame();
+                GameManager.instance.WinGame();
                     
                 
                 
             }
         }
         
+    }
+    public void KeycardObject1Found()
+    {
+        KeycardDisplay.SetActive(true);
+
+    }
+    public void UniformObject2Found()
+    {
+        UniformDisplay.SetActive(true);
+
+    }
+    public void KnifeObject3Found()
+    {
+        KnifeDisplay.SetActive(true);
+
     }
 
 }

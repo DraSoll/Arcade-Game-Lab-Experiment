@@ -32,7 +32,7 @@ public class FindObject : MonoBehaviour
     IEnumerator Player()
     {
         
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.5f);
         Destroy(this.gameObject);
 
     }

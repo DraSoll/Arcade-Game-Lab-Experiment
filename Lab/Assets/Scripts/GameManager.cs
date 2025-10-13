@@ -14,9 +14,12 @@ public class GameManager : MonoBehaviour
     public string LevelScreen = "Level"; 
     public static GameManager instance;
     public float timeDelay;
-    public GameObject KeycardDisplay;
-    public GameObject UniformDisplay;
-    public GameObject KnifeDisplay;
+   
+    public GameObject Tutorial;
+    public GameObject exitTutorial;
+    public GameObject Bat;
+    
+
     public string sceneName;
    
 
@@ -27,6 +30,7 @@ public class GameManager : MonoBehaviour
         {
             instance = this;
         }
+
         // if (instance != null)
         // {
         //     Destroy.this(gameObject);
@@ -39,9 +43,9 @@ public class GameManager : MonoBehaviour
     
     void Start()
     {
-        KeycardDisplay.SetActive(false);
-        UniformDisplay.SetActive(false);
-        KnifeDisplay.SetActive(false);
+        
+
+        
     }
 
     // Update is called once per frame
@@ -78,19 +82,19 @@ public class GameManager : MonoBehaviour
         Application.Quit(); 
         Debug.Log("Quit button pressed"); 
     }
-    public void KeycardObject1Found()
+    
+    public void ShowTutorial()
     {
-        KeycardDisplay.SetActive(true);
+        Tutorial.SetActive(true);
+        exitTutorial.SetActive(true);
+        Bat.SetActive(false);
 
     }
-    public void UniformObject2Found()
+    public void HideTutorial()
     {
-        UniformDisplay.SetActive(true);
-
-    }
-    public void KnifeObject3Found()
-    {
-        KnifeDisplay.SetActive(true);
+        Tutorial.SetActive(false);
+         exitTutorial.SetActive(false);
+         Bat.SetActive(true);
 
     }
 
